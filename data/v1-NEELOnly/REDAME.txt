@@ -1,0 +1,63 @@
+Datasets and Evaluation code for "S-MART: Novel Tree-based Structured Learning Algorithms Applied to Tweet Entity Linking"
+-------------------------------------------------------------------------------------------------------
+Contact Persons: Ming-Wei Chang        Microsoft Research (minchang@microsoft.com)
+				 Yi Yang               Georgia Tech (yangyiycc@gmail.com)
+
+
+-------------------------------------------------------------------------------------------------------
+We release both IE and IR datasets and python evaluation code for the IE-driven evaluation metric used in the paper: 
+
+S-MART: Novel Tree-based Structured Learning Algorithms Applied to Tweet Entity Linking
+To appear in The 53rd Annual Meeting of the Association for Computational Linguistics (ACL), 2015
+
+Please note that only Tweet IDs are provided, and please use Twitter API to grab the real tweets.
+
+Version 1.0: April 3, 2014
+
+
+-------------------------------------------------------------------------------------------------------
+SUMMARY
+
+Information Extraction (IE) setting:
+(we did some re-annotation work. Specifically, we removed all of the entities that does not below to our knowledge base to improve the consistency. Our knowledge base can be downloaded
+as http://web-ngram.research.microsoft.com/erd2014/Docs/entity.tsv)
+label-trainDev.tsv -- train split of NEEL [2] dataset
+label-train.tsv    -- train split of label-trainDev.tsv used in this paper (used for parameter tuning)
+label-dev.tsv      -- dev split of label-trainDev.tsv used in this paper (used for parameter tuning)
+label-test.tsv     -- test split of NEEL [2] dataset
+
+Information Retrieval (IR) setting:
+*                  -- IR-driven data adapted from [1]. Download it at http://research.microsoft.com/en-us/downloads/84ac9d88-c353-4059-97a4-87d129db0464/. 
+
+Evaluation Code:
+eval.py            -- python evaluation code for IE-driven evaluation metric (see details in the code file)
+
+
+-------------------------------------------------------------------------------------------------------
+INPUT DATA FORMAT
+
+--The format for the IE-driven test file is as follows--
+tweetID<TAB>start_offset<TAB>end_offset<TAB>gold_WikiID<TAB>gold_FreebaseID<TAB>mention<TAB>1<TAB>1
+
+274682958726705153  26  40  We_the_Best_Music_Group /m/065xz0v  wethebestmusic  1   1
+274682958726705153  48  53  Young_Money_Entertainment   /m/0g1j2g   ymcmb   1   1
+
+--System Output--
+We expect the following format for the prediction file is:
+tweetID<TAB>start_offset<TAB>end_offset<TAB>pred_WikiID<TAB>pred_FreebaseID<TAB>mention<TAB>1<TAB>1
+
+--IE-driven Evaluation Command--
+python eval.py goldfile_name predfile_name
+
+
+--The format for the IR-driven test file is as follows--
+tweetID<TAB>tweet<TAB>date<TAB>time<TAB>userID<TAB>userScreenName<TAB>Geo<NEWLINE>
+label
+
+Please see  http://research.microsoft.com/en-us/downloads/84ac9d88-c353-4059-97a4-87d129db0464/ for more details.
+
+-------------------------------------------------------------------------------------------------------
+REFERENCES
+[1] Entity Linking on Microblogs with Spatial and Temporal Signals. Yuan Fang & Ming-Wei Chang. In TACL 2014
+[2] Named Entity Extraction & Linking (NEEL) Challenge (http://www.scc.lancs.ac.uk/microposts2014/challenge/index.html), In #Microposts2014 
+[3] S-MART: Novel Tree-based Structured Learning Algorithms Applied to Tweet Entity Linking. In ACL 2015
